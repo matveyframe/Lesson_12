@@ -12,12 +12,11 @@ echo "Приятно познакомиться "$name"!"
 ```
 #!/bin/bash
 
-Proc=$1
+Proc=nginx.service
 status="Active: active (running)"
 
 if systemctl status $Proc |grep -q "$status"; then
         echo "Nginx is active"
-        exit 0
 else
         systemctl restart nginx
         echo "Nginx rebooting"
@@ -29,16 +28,12 @@ fi
 
 3) Написать скрипт для мониторинга доступности хоста (можно использовать ping) с записью результата в лог с датой и временем (формат произвольный).
 ```
-#!/bin/bash
-
 LOG_DIR="/home/matvey/home_works/lesson_12"
 DATE=$(date "+%Y-%m-%dT%H:%M:%S")
 LOG_PING=${LOG_DIR}/${DATE}
 
-mkdir -p $LOG_PING
-ping ya.ru -c 4 > ${LOG_PING}/ping.log
-
-
+mkdir -p $LOG_PING  > dev/null 2>&1
+ping ya.ru -c 4 > ${LOG_PING}/ping.log 2>&1
 ```
 
 ![](https://github.com/matveyframe/Lesson_12/blob/main/Ping_Host.sh%20result.PNG "Logo Title Text 1")
