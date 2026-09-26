@@ -12,16 +12,17 @@ echo "Приятно познакомиться "$name"!"
 ```
 #!/bin/bash
 
-Proc=nginx.service
+Proc=$1
 status="Active: active (running)"
 
 if systemctl status $Proc |grep -q "$status"; then
         echo "Nginx is active"
+        exit 0
 else
         systemctl restart nginx
         echo "Nginx rebooting"
         systemctl status nginx | grep active
-        exit 0
+        exit 1
 fi
 ```
 ![](https://github.com/matveyframe/Lesson_12/blob/main/monitoring_nginx.sh%20result.PNG "Logo Title Text 1")
